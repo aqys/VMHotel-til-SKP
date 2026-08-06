@@ -1,0 +1,11 @@
+src/frontend/node_modules/
+src/frontend/dist/
+src/frontend/.env
+src/frontend/.env.local
+
+.vscode/
+
+bin
+obj
+
+appsettings.Development.json
