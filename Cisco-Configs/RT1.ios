@@ -1,0 +1,54 @@
+enable
+conf t
+hostname RT1
+no ip domain-lookup
+ip domain-name cloud.local
+service password-encryption
+service tcp-keepalives-in
+service tcp-keepalives-out
+enable secret P1ssword1!
+logging buffered 51200 warnings
+logging host 10.47.47.50
+logging trap warnings
+no cdp run
+username admin privilege 15 secret P1ssword1!
+ip name-server 1.1.1.1
+ip name-server 8.8.8.8
+ip ssh version 2
+crypto key generate rsa modulus 2048
+login block-for 60 attempts 5 within 60
+ip cef
+no ipv6 cef
+interface GigabitEthernet0/1
+ description LAN mod Proxmox Cluster
+ ip address 10.47.47.1 255.255.255.0
+ no shutdown
+ exit
+interface GigabitEthernet0/0
+ description Ikke brugt (pfSense håndterer WAN)
+ shutdown
+ exit
+interface Serial0/0/0
+ shutdown
+ exit
+interface Serial0/0/1
+ shutdown
+ exit
+ip route 0.0.0.0 0.0.0.0 10.47.47.250 200
+ip route 10.200.200.0 255.255.255.0 10.47.47.250
+no ip http server
+no ip http secure-server
+access-list 10 permit 10.47.47.0 0.0.0.255
+access-list 10 permit 10.200.200.0 0.0.0.255
+line con 0
+ logging synchronous
+ login local
+ exec-timeout 10 0
+ exit
+line vty 0 4
+ login local
+ transport input ssh
+ access-class 10 in
+ exec-timeout 10 0
+ exit
+end

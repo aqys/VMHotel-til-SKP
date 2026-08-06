@@ -1,0 +1,121 @@
+enable
+conf t
+hostname SW1
+no service pad
+no cdp run
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+enable secret P1ssword1!
+logging buffered 51200 warnings
+logging host 10.47.47.50
+logging trap warnings
+
+vlan 30
+ name KLIENT
+ exit
+
+vlan 90
+ name DMZ
+ exit
+
+username admin privilege 15 secret P1ssword1!
+no aaa new-model
+no ip domain-lookup
+ip domain-name cloud.local
+ip ssh version 2
+crypto key generate rsa modulus 2048
+login block-for 60 attempts 5 within 60
+
+spanning-tree mode rapid-pvst
+spanning-tree portfast edge default
+spanning-tree extend system-id
+spanning-tree portfast bpduguard default
+spanning-tree vlan 1 priority 24576
+spanning-tree vlan 30 priority 24576
+spanning-tree vlan 90 priority 24576
+
+vlan internal allocation policy ascending
+
+interface GigabitEthernet2/0/1
+ description Router uplink (backup)
+ switchport access vlan 1
+ switchport mode access
+ no spanning-tree portfast
+ no shutdown
+ exit
+
+interface range GigabitEthernet2/0/2-5
+ description LAN - Proxmox / servere
+ switchport trunk allowed vlan 1,30,90
+ switchport mode trunk
+ no spanning-tree portfast edge
+ no shutdown
+ exit
+
+interface range GigabitEthernet2/0/6-48
+ switchport mode access
+ spanning-tree portfast edge
+ shutdown
+ exit
+
+interface range GigabitEthernet2/0/13-18
+ description LACP trunk til SW02
+ switchport mode trunk
+ switchport trunk allowed vlan 1,30,90
+ channel-group 1 mode active
+ no spanning-tree portfast
+ spanning-tree guard root
+ no shutdown
+ exit
+
+interface Port-channel1
+ description Trunk til SW02 (LACP)
+ switchport mode trunk
+ switchport trunk allowed vlan 1,30,90
+ spanning-tree guard root
+ exit
+
+interface GigabitEthernet2/0/24
+ description pfSense LAN (Gateway)
+ switchport trunk allowed vlan 1,30,90
+ switchport mode trunk
+ spanning-tree portfast edge
+ no shutdown
+ exit
+
+interface Vlan1
+ ip address 10.47.47.2 255.255.255.0
+ no shutdown
+ exit
+
+ip default-gateway 10.47.47.250
+
+no ip http server
+no ip http secure-server
+
+access-list 10 permit 10.47.47.0 0.0.0.255
+access-list 10 permit 10.200.200.0 0.0.0.255
+
+line con 0
+ logging synchronous
+ login local
+ exec-timeout 10 0
+ exit
+
+line vty 0 4
+ login local
+ transport input ssh
+ access-class 10 in
+ exec-timeout 10 0
+ exit
+
+line vty 5 15
+ login local
+ transport input ssh
+ access-class 10 in
+ exec-timeout 10 0
+ exit
+
+end
+write memory
