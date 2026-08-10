@@ -1,11 +1,23 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AppSidebar from '@/components/layout/AppSidebar.vue'
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <div class="layout">
+    <AppSidebar />
+    <main class="layout__content">
+      <RouterView />
+    </main>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.layout {
+  display: flex;
+}
+
+.layout__content {
+  flex: 1;
+  padding: 1.5rem;
+}
+</style>
