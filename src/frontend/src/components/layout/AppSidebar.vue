@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import {
   IconLayoutDashboard, IconLayoutDashboardFilled,
@@ -7,10 +8,48 @@ import {
   IconSettings, IconSettingsFilled,
   IconInfoCircle, IconInfoCircleFilled,
   IconDotsVertical,
+  IconUser,
+  IconLogout,
 } from '@tabler/icons-vue'
 import logo from '@/assets/logo.png'
 
 const route = useRoute()
+
+const userMenuRef = ref<HTMLElement | null>(null)
+const isUserMenuOpen = ref(false)
+
+function toggleUserMenu() {
+  isUserMenuOpen.value = !isUserMenuOpen.value
+}
+
+function closeUserMenu() {
+  isUserMenuOpen.value = false
+}
+
+function handleClickOutside(event: MouseEvent) {
+  if (isUserMenuOpen.value && !userMenuRef.value?.contains(event.target as Node)) {
+    closeUserMenu()
+  }
+}
+
+function handleKeydown(event: KeyboardEvent) {
+  if (event.key === 'Escape') closeUserMenu()
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+  document.addEventListener('keydown', handleKeydown)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside)
+  document.removeEventListener('keydown', handleKeydown)
+})
+
+function logOut() {
+  closeUserMenu()
+  // TODO: add auth når implemented
+}
 
 const sections = [
   {
@@ -69,13 +108,35 @@ const initials = currentUser.name
       </div>
     </nav>
 
-    <div class="sidebar__user">
+    <div ref="userMenuRef" class="sidebar__user">
       <div class="sidebar__avatar">{{ initials }}</div>
       <div class="sidebar__user-text">
         <span class="sidebar__user-name">{{ currentUser.name }}</span>
         <span class="sidebar__user-role">{{ currentUser.role }}</span>
       </div>
-      <IconDotsVertical class="sidebar__user-menu" :size="17" :stroke-width="1.75" />
+      <button
+        type="button"
+        class="sidebar__user-menu-trigger"
+        aria-label="Brugermenu"
+        :aria-expanded="isUserMenuOpen"
+        @click="toggleUserMenu"
+      >
+        <IconDotsVertical :size="17" :stroke-width="1.75" />
+      </button>
+
+      <Transition name="user-menu">
+        <div v-if="isUserMenuOpen" class="sidebar__user-popover" role="menu">
+          <RouterLink to="/settings" class="sidebar__user-popover-item" role="menuitem" @click="closeUserMenu">
+            <IconUser :size="16" :stroke-width="1.75" />
+            <span>Min profil</span>
+          </RouterLink>
+          <div class="sidebar__user-popover-divider" />
+          <button type="button" class="sidebar__user-popover-item sidebar__user-popover-item--danger" role="menuitem" @click="logOut">
+            <IconLogout :size="16" :stroke-width="1.75" />
+            <span>Log ud</span>
+          </button>
+        </div>
+      </Transition>
     </div>
   </aside>
 </template>
@@ -211,6 +272,7 @@ const initials = currentUser.name
 }
 
 .sidebar__user {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -253,10 +315,96 @@ const initials = currentUser.name
   color: #9aa0ac;
 }
 
-.sidebar__user-menu {
+.sidebar__user-menu-trigger {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
   color: #9aa0ac;
   cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.sidebar__user-menu-trigger:hover,
+.sidebar__user-menu-trigger[aria-expanded='true'] {
+  background: #eaf1fb;
+  color: #1c5fa8;
+}
+
+.sidebar__user-menu-trigger:focus-visible {
+  outline: 2px solid #2b6fc2;
+  outline-offset: 1px;
+}
+
+.sidebar__user-popover {
+  position: absolute;
+  right: 0.75rem;
+  bottom: calc(100% + 0.4rem);
+  min-width: 170px;
+  background: #fff;
+  border: 1px solid #e6e8ec;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(20, 24, 33, 0.12);
+  padding: 0.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  z-index: 20;
+}
+
+.sidebar__user-popover-item {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  height: 34px;
+  padding: 0 0.6rem;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: #4b5160;
+  font-size: 0.84rem;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.sidebar__user-popover-item:hover {
+  background: #eaf1fb;
+  color: #1c5fa8;
+}
+
+.sidebar__user-popover-item--danger {
+  color: #c53030;
+}
+
+.sidebar__user-popover-item--danger:hover {
+  background: #fdecec;
+  color: #c53030;
+}
+
+.sidebar__user-popover-divider {
+  height: 1px;
+  margin: 0.25rem 0.2rem;
+  background: #e6e8ec;
+}
+
+.user-menu-enter-active,
+.user-menu-leave-active {
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.user-menu-enter-from,
+.user-menu-leave-to {
+  opacity: 0;
+  transform: translateY(4px);
 }
 
 </style>
