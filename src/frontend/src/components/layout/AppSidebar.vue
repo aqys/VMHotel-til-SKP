@@ -6,7 +6,7 @@ import {
   IconDeviceDesktop, IconDeviceDesktopFilled,
   IconFile, IconFileFilled,
   IconSettings, IconSettingsFilled,
-  IconInfoCircle, IconInfoCircleFilled,
+  IconInfoSquareRounded, IconInfoSquareRoundedFilled,
   IconDotsVertical,
   IconUser,
   IconLogout,
@@ -63,7 +63,7 @@ const sections = [
   {
     title: 'System',
     links: [
-      { to: '/info', label: 'Information', icon: IconInfoCircle, iconFilled: IconInfoCircleFilled },
+      { to: '/info', label: 'Information', icon: IconInfoSquareRounded, iconFilled: IconInfoSquareRoundedFilled },
       { to: '/settings', label: 'Indstillinger', icon: IconSettings, iconFilled: IconSettingsFilled },
     ],
   },
@@ -147,7 +147,7 @@ const initials = currentUser.name
   flex-shrink: 0;
   height: 100vh;
   box-sizing: border-box;
-  background: #f8f9fb;
+  background: #ebeff2;
   border-right: 1px solid #e6e8ec;
   color: #1f2430;
   display: flex;
@@ -198,7 +198,7 @@ const initials = currentUser.name
 .sidebar__section {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.4rem;
 }
 
 .sidebar__section-title {
@@ -220,6 +220,7 @@ const initials = currentUser.name
   color: #4b5160;
   text-decoration: none;
   font-size: 0.9rem;
+  font-weight: 500;
   transition: background-color 0.12s ease, color 0.12s ease;
 }
 
@@ -236,7 +237,7 @@ const initials = currentUser.name
 }
 
 .sidebar__link:hover {
-  background: #eaf1fb;
+  background: #e2e6eddd;
   color: #1c5fa8;
 }
 
@@ -245,7 +246,7 @@ const initials = currentUser.name
 }
 
 .sidebar__link--active {
-  background: #eaf1fb;
+  background: #e2e6eddd;
   color: #1c5fa8;
   font-weight: 600;
 }
