@@ -2,7 +2,7 @@
 
 ## Om projektet
 
-VMHotel-SKP er en selvbetjeningsportal til Proxmox, hvor elever kan oprette og administrere virtuelle maskiner. Instruktører kan se og administrere elevernes VM’er.
+VMHotel-SKP er en selvbetjeningsportal til Proxmox, hvor elever kan oprette og administrere virtuelle maskiner. Instruktører kan se elevernes VM’er.
 
 Login og brugerroller håndteres gennem Active Directory.
 
