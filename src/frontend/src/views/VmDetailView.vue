@@ -726,7 +726,6 @@ const activityEntries = computed(() => (vm.value ? (vmActivity[vm.value.name] ??
   color: #1f2430;
 }
 
-/* Header */
 .vm-header {
   display: flex;
   align-items: flex-start;
@@ -812,7 +811,6 @@ const activityEntries = computed(() => (vm.value ? (vmActivity[vm.value.name] ??
   flex-shrink: 0;
 }
 
-/* Shared action button (header, snapshots) */
 .action-btn {
   display: inline-flex;
   align-items: center;
@@ -869,7 +867,6 @@ const activityEntries = computed(() => (vm.value ? (vmActivity[vm.value.name] ??
   cursor: not-allowed;
 }
 
-/* Header "..." popover */
 .header-menu {
   position: relative;
 }
@@ -927,7 +924,6 @@ const activityEntries = computed(() => (vm.value ? (vmActivity[vm.value.name] ??
   background: #e6e8ec;
 }
 
-/* Tabs */
 .tabs {
   display: flex;
   align-items: center;
@@ -966,7 +962,6 @@ const activityEntries = computed(() => (vm.value ? (vmActivity[vm.value.name] ??
   background: #2b6fc2;
 }
 
-/* Tab panels */
 .tab-panel {
   display: flex;
   flex-direction: column;
@@ -1095,7 +1090,6 @@ const activityEntries = computed(() => (vm.value ? (vmActivity[vm.value.name] ??
   text-align: right;
 }
 
-/* Hardware */
 .hw-rows {
   display: flex;
   flex-direction: column;
@@ -1152,7 +1146,6 @@ const activityEntries = computed(() => (vm.value ? (vmActivity[vm.value.name] ??
   background: #eaf1fb;
 }
 
-/* Snapshots */
 .snapshot-quota {
   margin: -0.4rem 0 0;
   font-size: 0.8rem;
@@ -1202,7 +1195,6 @@ const activityEntries = computed(() => (vm.value ? (vmActivity[vm.value.name] ??
   flex-shrink: 0;
 }
 
-/* Activity */
 .timeline {
   list-style: none;
   margin: 0;
@@ -1260,7 +1252,6 @@ const activityEntries = computed(() => (vm.value ? (vmActivity[vm.value.name] ??
   border-radius: 12px;
 }
 
-/* Modal content (AppModal only provides the backdrop/panel shell) */
 .modal-head {
   display: flex;
   align-items: center;
