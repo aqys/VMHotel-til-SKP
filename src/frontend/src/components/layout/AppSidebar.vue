@@ -56,7 +56,7 @@ const sections = [
     title: 'Hovedmenu',
     links: [
       { to: '/', label: 'Dashboard', icon: IconLayoutDashboard, iconFilled: IconLayoutDashboardFilled },
-      { to: '/vms', label: "VM'er", icon: IconDeviceDesktop, iconFilled: IconDeviceDesktopFilled },
+      { to: '/vms', label: "Mine VM'er", icon: IconDeviceDesktop, iconFilled: IconDeviceDesktopFilled },
       { to: '/templates', label: 'Templates', icon: IconFile, iconFilled: IconFileFilled },
     ],
   },
@@ -143,7 +143,7 @@ const initials = currentUser.name
 
 <style scoped>
 .sidebar {
-  width: 260px;
+  width: 240px;
   flex-shrink: 0;
   height: 100vh;
   box-sizing: border-box;
@@ -158,7 +158,7 @@ const initials = currentUser.name
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  padding: 0.5rem 1.1rem;
+  padding: 1rem 1.1rem;
   border-bottom: 1px solid #e6e8ec;
 }
 
@@ -178,12 +178,6 @@ const initials = currentUser.name
 .sidebar__brand-name {
   font-size: 1.25rem;
   font-weight: 700;
-}
-
-.sidebar__brand-subtitle {
-  font-size: 0.7rem;
-  color: #9aa0ac;
-  font-weight: 500;
 }
 
 .sidebar__nav {
@@ -258,12 +252,11 @@ const initials = currentUser.name
 .sidebar__link--active::before {
   content: '';
   position: absolute;
-  left: -0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
+  left: -0.35rem;
+  top: 4px;
+  bottom: 4px;
   width: 3px;
-  height: 20px;
-  border-radius: 0 3px 3px 0;
+  border-radius: 3px;
   background: #2b6fc2;
 }
 
@@ -395,17 +388,6 @@ const initials = currentUser.name
   height: 1px;
   margin: 0.25rem 0.2rem;
   background: #e6e8ec;
-}
-
-.user-menu-enter-active,
-.user-menu-leave-active {
-  transition: opacity 0.12s ease, transform 0.12s ease;
-}
-
-.user-menu-enter-from,
-.user-menu-leave-to {
-  opacity: 0;
-  transform: translateY(4px);
 }
 
 </style>
