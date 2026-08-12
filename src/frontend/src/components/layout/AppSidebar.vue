@@ -63,7 +63,7 @@ const sections = [
   {
     title: 'System',
     links: [
-      { to: '/info', label: 'Information', icon: IconInfoSquareRounded, iconFilled: IconInfoSquareRoundedFilled },
+      { to: '/info', label: 'Hjælp & information', icon: IconInfoSquareRounded, iconFilled: IconInfoSquareRoundedFilled },
       { to: '/settings', label: 'Indstillinger', icon: IconSettings, iconFilled: IconSettingsFilled },
     ],
   },

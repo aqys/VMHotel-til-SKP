@@ -14,10 +14,14 @@ import AppSidebar from '@/components/layout/AppSidebar.vue'
 <style scoped>
 .layout {
   display: flex;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .layout__content {
   flex: 1;
+  min-width: 0;
   padding: 1.5rem;
+  overflow-y: auto;
 }
 </style>
