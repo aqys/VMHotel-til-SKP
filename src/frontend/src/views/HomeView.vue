@@ -100,12 +100,10 @@ const activity = computed(() =>
 
 <template>
   <div class="page">
-    <header class="topbar">
-      <button type="button" class="topbar__bell" aria-label="Notifikationer">
-        <IconBell :size="20" :stroke-width="1.75" />
-        <span v-if="notificationCount" class="topbar__badge">{{ notificationCount }}</span>
-      </button>
-    </header>
+    <button type="button" class="topbar__bell" aria-label="Notifikationer">
+      <IconBell :size="20" :stroke-width="1.75" />
+      <span v-if="notificationCount" class="topbar__badge">{{ notificationCount }}</span>
+    </button>
 
     <h1 class="page__title">Dashboard</h1>
 
@@ -198,19 +196,16 @@ const activity = computed(() =>
 
 <style scoped>
 .page {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
 }
 
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
 .topbar__bell {
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
   display: flex;
   align-items: center;
   justify-content: center;
