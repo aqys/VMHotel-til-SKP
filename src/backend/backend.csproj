@@ -11,4 +11,21 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.10" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <FrontendDir>$(MSBuildProjectDirectory)/../frontend</FrontendDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrontendSource Include="$(FrontendDir)/src/**/*.*;$(FrontendDir)/public/**/*.*;$(FrontendDir)/index.html;$(FrontendDir)/package.json;$(FrontendDir)/package-lock.json;$(FrontendDir)/vite.config.ts;$(FrontendDir)/tsconfig*.json" />
+  </ItemGroup>
+
+  <Target Name="BuildFrontend" BeforeTargets="Build"
+          Condition="'$(SkipFrontendBuild)' != 'true'"
+          Inputs="@(FrontendSource)" Outputs="$(BaseIntermediateOutputPath)frontend-build.stamp">
+    <Exec Command="npm install" WorkingDirectory="$(FrontendDir)" Condition="!Exists('$(FrontendDir)/node_modules')" />
+    <Exec Command="npm run build" WorkingDirectory="$(FrontendDir)" />
+    <MakeDir Directories="$(BaseIntermediateOutputPath)" Condition="!Exists('$(BaseIntermediateOutputPath)')" />
+    <WriteLinesToFile File="$(BaseIntermediateOutputPath)frontend-build.stamp" Lines="built" Overwrite="true" />
+  </Target>
+
 </Project>

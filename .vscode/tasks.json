@@ -1,0 +1,46 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/src/backend/backend.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "Builds the frontend (npm run build) and then the backend."
+    },
+    {
+      "label": "publish",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "publish",
+        "${workspaceFolder}/src/backend/backend.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "watch",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "watch",
+        "run",
+        "--project",
+        "${workspaceFolder}/src/backend/backend.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}
