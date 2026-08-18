@@ -360,7 +360,6 @@ const activityEntries = computed(() => (vm.value ? (vmActivity[vm.value.name] ??
           <div class="vm-header__title-row">
             <h1 class="vm-header__name">{{ vm.name }}</h1>
             <span class="vm-header__status" :class="`vm-header__status--${vm.status}`">
-              <span class="vm-header__status-dot" />
               {{ statusLabels[vm.status] }}
             </span>
           </div>
@@ -766,30 +765,6 @@ const activityEntries = computed(() => (vm.value ? (vmActivity[vm.value.name] ??
   gap: 0.4rem;
   font-size: 0.82rem;
   font-weight: 600;
-}
-
-.vm-header__status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  box-sizing: border-box;
-}
-
-.vm-header__status--running {
-  color: #2f9e44;
-}
-
-.vm-header__status--running .vm-header__status-dot {
-  background: #2f9e44;
-}
-
-.vm-header__status--stopped {
-  color: #4b5160;
-}
-
-.vm-header__status--stopped .vm-header__status-dot {
-  background: transparent;
-  border: 1.5px solid #9aa0ac;
 }
 
 .vm-header__os {
